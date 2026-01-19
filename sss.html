@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You</title>
+    <style>
+        :root {
+            --primary-color: #e88080; /* Soft Red/Pink */
+            --bg-color: #f9f5f5;
+            --text-color: #4a4a4a;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 60px 20px;
+            text-align: center;
+            animation: fadeIn 2s ease-in;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 90%;
+            padding: 20px;
+        }
+
+        /* Apology Letter Section */
+        .letter-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        /* Interactive Promises Section */
+        .promises-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .promise-card {
+            background: var(--primary-color);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 20px auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 8px 15px rgba(232, 128, 128, 0.4);
+            user-select: none;
+        }
+
+        .promise-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tap-hint {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            margin-top: 10px;
+        }
+
+        /* Action Buttons */
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #btn-yes {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: bold;
+        }
+
+        #btn-yes:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Hidden success message */
+        #success-message {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>I'm Sorry, Sreeja</h1>
+        <p>Please hear me out.</p>
+    </header>
+
+    <div class="container">
+        <div class="letter-card">
+            <p><strong>Dear NP Sreeja,</strong></p>
+            <p>I wanted to create this little space to tell you how truly sorry I am. I know I messed up, and typing a text message didn't feel like enough.</p>
+            <p>I value us more than anything, and I hate that I hurt you. I've taken some time to think about what went wrong and how I can be better for you, and for us.</p>
+            <p>This isn't just an apology; it's a commitment to do better.</p>
+        </div>
+
+        <div class="promises-section">
+            <h2>My Promises to You</h2>
+            <p>Tap the card to see how I plan to improve.</p>
+            
+            <div class="promise-card" id="promise-display" onclick="nextPromise()">
+                <div id="promise-text">I promise to listen more effectively.</div>
+                <div class="tap-hint">(Tap for next promise)</div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button id="btn-yes" onclick="acceptApology()">Will you forgive me?</button>
+        </div>
+        
+        <div id="success-message">
+            Thank you for giving me another chance. ❤️ <br> I won't let you down.
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIGURATION: EDIT YOUR PROMISES HERE ---
+        const promises = [
+            "I promise to listen to understand, not just to reply.",
+            "I promise to be more patient when we are stressed.",
+            "I promise to communicate my feelings before I get angry.",
+            "I promise to always make time for 'us'.",
+            "I promise to appreciate the little things you do."
+        ];
+        // ----------------------------------------------
+
+        let currentPromiseIndex = 0;
+        const promiseText = document.getElementById('promise-text');
+
+        function nextPromise() {
+            // Fade out
+            promiseText.style.opacity = 0;
+            
+            setTimeout(() => {
+                currentPromiseIndex = (currentPromiseIndex + 1) % promises.length;
+                promiseText.innerText = promises[currentPromiseIndex];
+                // Fade in
+                promiseText.style.opacity = 1;
+            }, 200); 
+        }
+
+        function acceptApology() {
+            const btn = document.getElementById('btn-yes');
+            const successMsg = document.getElementById('success-message');
+            
+            btn.style.display = 'none';
+            successMsg.style.display = 'block';
+            
+            // Optional: Launch confetti logic could go here
+            document.body.style.backgroundColor = "#fff0f0";
+        }
+    </script>
+</body>
+</html>
